@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">DigitalRecipe</string>
+    <string name="user_name">User name</string>
+    <string name="register">Register</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log in</string>
+    <string name="about">About</string>
+    <string name="email">Email address</string>
 </resources>
