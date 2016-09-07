@@ -19,15 +19,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
-    private static final String DATABASE_NAME = "appUsers";
+    private static final String DATABASE_NAME = "myAppDB";
 
     // Contacts table name
-    private static final String TABLE_NAME = "users";
+    private static final String TABLE_NAME = "myTable";
 
     // Contacts Table Columns names
     private static final String KEY_USER_NAME = "user_name";
     private static final String KEY_PASSWORD = "password";
-    private static final String KEY_EMAIL = "email";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -37,8 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_NAME + "("
-                + KEY_USER_NAME + " INTEGER ," + KEY_PASSWORD + " TEXT,"
-                + KEY_EMAIL + " TEXT, " + "PRIMARY KEY(" + KEY_USER_NAME + "," + KEY_EMAIL + "))";
+                + KEY_USER_NAME + " VARCHAR PRIMARY KEY," + KEY_PASSWORD + " VARCHAR" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
 
@@ -63,7 +61,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_USER_NAME, user.getUserName()); // Contact Name
         values.put(KEY_PASSWORD, user.getPassword()); // Contact Phone
-        values.put(KEY_EMAIL, user.geteMail()); // Contact Phone
 
         // Inserting Row
         db.insert(TABLE_NAME, null, values);
@@ -85,7 +82,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 User user = new User();
                 user.setUserName(cursor.getString(0));
                 user.setPassword(cursor.getString(1));
-                user.seteMail(cursor.getString(2));
                 // Adding contact to list
                 userList.add(user);
             } while (cursor.moveToNext());
@@ -104,6 +100,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // return count
         return cursor.getCount();
+    }
+
+    public void deleteDB() {
+        String countQuery = "DELETE  * FROM " + TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL("delete from "+ TABLE_NAME);
+        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
     }
 
 }

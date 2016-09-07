@@ -6,12 +6,10 @@ package com.example.shayzambrovski.digitalrecipe;
 public class User {
     String userName;
     String password;
-    String eMail;
 
-    public User(String userName, String password, String eMail) {
+    public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
-        this.eMail = eMail;
     }
 
     public User() {
@@ -34,11 +32,4 @@ public class User {
         this.password = password;
     }
 
-    public String geteMail() {
-        return eMail;
-    }
-
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
-    }
 }

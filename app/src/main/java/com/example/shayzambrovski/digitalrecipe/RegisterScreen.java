@@ -54,7 +54,7 @@ public class RegisterScreen extends AppCompatActivity {
                     if(sUserName.equals("") || sPassword.equals("") || !matcher.matches() ) {
                         Toast.makeText(getApplicationContext(),"Bad",Toast.LENGTH_SHORT).show();
                     } else {
-                        db.addUser(new User(sUserName, sPassword, seMail));
+                        db.addUser(new User(sUserName, sPassword));
                     }
                 } catch(Exception e) {
                     Log.e("Error: ", e.toString());
