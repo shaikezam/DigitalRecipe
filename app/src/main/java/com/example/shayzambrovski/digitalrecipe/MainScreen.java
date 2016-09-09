@@ -47,35 +47,19 @@ public class MainScreen extends AppCompatActivity {
                     //Toast.makeText(getApplicationContext(),"Good",Toast.LENGTH_SHORT).show();
                     if(sUserName.equals("") || sPassword.equals("")) {
 
-                        AlertDialog alertDialog = new AlertDialog.Builder(oContext).create();
-                        alertDialog.setTitle(getResources().getString(R.string.authentication_error));
-                        alertDialog.setMessage(getResources().getString(R.string.fill_fields));
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-                        alertDialog.show();
+                        DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.authentication_error), getResources().getString(R.string.fill_fields));
+                        dm.show();
 
                     } else {
                         User oUser = db.getUser(sUserName, sPassword);
                         if (oUser == null) {
-
-                            AlertDialog alertDialog = new AlertDialog.Builder(oContext).create();
-                            alertDialog.setTitle(getResources().getString(R.string.authentication_error));
-                            alertDialog.setMessage(getResources().getString(R.string.cant_found_user) + sUserName);
-                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-                            alertDialog.show();
-
+                            DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.authentication_error), (getResources().getString(R.string.cant_found_user) + ": " + sUserName));
+                            dm.show();
                         }
-                        else
-                            Toast.makeText(getApplicationContext(),oUser.toString(),Toast.LENGTH_SHORT).show();
+                        else {
+                            DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.success),sUserName + ": " + getResources().getString(R.string.log_in_success));
+                            dm.show();
+                        }
                     }
 
                     //Intent myIntent = new Intent(MainScreen.this, RegisterScreen.class);
@@ -94,12 +78,21 @@ public class MainScreen extends AppCompatActivity {
                     DatabaseHandler db = new DatabaseHandler(oContext);
                     String sUserName = userName.getText().toString();
                     String sPassword = password.getText().toString();
-                    Toast.makeText(getApplicationContext(),String.valueOf(db.getUsersCount()),Toast.LENGTH_SHORT).show();
                     //Toast.makeText(getApplicationContext(),"Good",Toast.LENGTH_SHORT).show();
                     if(sUserName.equals("") || sPassword.equals("")) {
-                        Toast.makeText(getApplicationContext(),"Bad",Toast.LENGTH_SHORT).show();
+
+                        DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.authentication_error), getResources().getString(R.string.fill_fields));
+                        dm.show();
+
                     } else {
-                        db.addUser(new User(sUserName, sPassword));
+                        long number = db.addUser(new User(sUserName, sPassword));
+                        if(number == -1) {
+                            DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.registration_error), getResources().getString(R.string.user_duplicate));
+                            dm.show();
+                        } else {
+                            DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.success),sUserName + ": " + getResources().getString(R.string.registration_success));
+                            dm.show(); //TODO: move to main menu screen
+                        }
                     }
 
                     //Intent myIntent = new Intent(MainScreen.this, RegisterScreen.class);

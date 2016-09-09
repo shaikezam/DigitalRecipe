@@ -9,6 +9,11 @@
 
     <string name="authentication_error">Authentication error</string>
     <string name="fill_fields">Please fill all fields</string>
-    <string name="cant_found_user">Cant found user with the user name: </string>
+    <string name="cant_found_user">Cant found user with the user name</string>
+    <string name="registration_error">Registration error</string>
+    <string name="user_duplicate">User name is not available</string>
+    <string name="success">Success</string>
+    <string name="registration_success">Registration success</string>
+    <string name="log_in_success">Log in success</string>
 
 </resources>

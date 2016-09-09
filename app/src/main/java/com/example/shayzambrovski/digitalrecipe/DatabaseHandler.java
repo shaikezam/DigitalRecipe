@@ -56,7 +56,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
 
     // Adding new contact
-    void addUser(User user) {
+    long addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -64,8 +64,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_PASSWORD, user.getPassword()); // Contact Phone
 
         // Inserting Row
-        db.insert(TABLE_NAME, null, values);
+        long number = db.insert(TABLE_NAME, null, values);
         db.close(); // Closing database connection
+        return number;
     }
 
     // Getting single contact
