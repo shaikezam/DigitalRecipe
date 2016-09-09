@@ -1,6 +1,8 @@
 package com.example.shayzambrovski.digitalrecipe;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,11 +31,63 @@ public class MainScreen extends AppCompatActivity {
         bindUI();
     }
     public void bindUI() {
-        this.userName = (EditText)findViewById(R.id.user_name_id);
-        this.password = (EditText)findViewById(R.id.password_id);
-        this.logIn = (Button)findViewById(R.id.log_in_id);
-        this.register = (Button)findViewById(R.id.register_id);
         final Context oContext = this;
+        this.userName = (EditText)findViewById(R.id.user_name_id);
+
+        this.password = (EditText)findViewById(R.id.password_id);
+
+        this.logIn = (Button)findViewById(R.id.log_in_id);
+
+        this.logIn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try{
+                    DatabaseHandler db = new DatabaseHandler(oContext);
+                    String sUserName = userName.getText().toString();
+                    String sPassword = password.getText().toString();
+                    //Toast.makeText(getApplicationContext(),"Good",Toast.LENGTH_SHORT).show();
+                    if(sUserName.equals("") || sPassword.equals("")) {
+
+                        AlertDialog alertDialog = new AlertDialog.Builder(oContext).create();
+                        alertDialog.setTitle(getResources().getString(R.string.authentication_error));
+                        alertDialog.setMessage(getResources().getString(R.string.fill_fields));
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
+
+                    } else {
+                        User oUser = db.getUser(sUserName, sPassword);
+                        if (oUser == null) {
+
+                            AlertDialog alertDialog = new AlertDialog.Builder(oContext).create();
+                            alertDialog.setTitle(getResources().getString(R.string.authentication_error));
+                            alertDialog.setMessage(getResources().getString(R.string.cant_found_user) + sUserName);
+                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            alertDialog.show();
+
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(),oUser.toString(),Toast.LENGTH_SHORT).show();
+                    }
+
+                    //Intent myIntent = new Intent(MainScreen.this, RegisterScreen.class);
+                    //startActivity(myIntent);
+                } catch(Exception e) {
+                    Log.e("Error: ", e.toString());
+                }
+            }
+        });
+
+        this.register = (Button)findViewById(R.id.register_id);
+
         this.register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try{

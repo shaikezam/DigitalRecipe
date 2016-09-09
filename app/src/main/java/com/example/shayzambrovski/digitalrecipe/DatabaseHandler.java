@@ -11,6 +11,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -65,6 +66,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Inserting Row
         db.insert(TABLE_NAME, null, values);
         db.close(); // Closing database connection
+    }
+
+    // Getting single contact
+    User getUser(String sUserName, String sPassword) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor resultSet = null;
+        try{
+            resultSet = db.rawQuery("SELECT * FROM " + TABLE_NAME + " where " + KEY_PASSWORD + " = '" + sPassword + "' and " + KEY_USER_NAME + " = '" + sUserName + "';",null);
+        }catch(Exception e) {
+            Log.e("Error: ", e.toString());
+        }
+        if(resultSet.getCount() == 0 || resultSet == null) {
+            return null;
+        }
+
+        if (resultSet != null)
+            resultSet.moveToFirst();
+        User user = new User(resultSet.getString(resultSet.getColumnIndex(KEY_USER_NAME)), resultSet.getString(resultSet.getColumnIndex(KEY_PASSWORD)));
+            // return contact
+        return user;
     }
 
     // Getting All Contacts
