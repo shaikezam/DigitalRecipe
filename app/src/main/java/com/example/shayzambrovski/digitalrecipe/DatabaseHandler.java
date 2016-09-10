@@ -20,32 +20,57 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
-    private static final String DATABASE_NAME = "myAppDB";
+    private static final String DATABASE_NAME = "myAppDataBase";
 
-    // Contacts table name
-    private static final String TABLE_NAME = "myTable";
+    // Tables name
+    private static final String USER_TABLE = "tableOfUsers";
+    private static final String RECIPE_TABLE = "tableOfRecipes";
 
-    // Contacts Table Columns names
+    // Users Table Columns names
     private static final String KEY_USER_NAME = "user_name";
     private static final String KEY_PASSWORD = "password";
 
+    // Recipe Table Columns names
+    private static final String KEY_RECIPE_NAME = "recipe_name";
+    private static final String KEY_INGREDIENTS = "ingredients";
+    private static final String KEY_INSTRUCTIONS = "instructions";
+    private static final String KEY_RECIPE_RATE = "recipe_rate";
+
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String CREATE_CONTACTS_TABLE = "CREATE TABLE IF NOT EXISTS " + USER_TABLE + "("
+                + KEY_USER_NAME + " VARCHAR PRIMARY KEY," + KEY_PASSWORD + " VARCHAR" + ")";
+        db.execSQL(CREATE_CONTACTS_TABLE);
+
+        String CREATE_RECIPE_TABLE = "CREATE TABLE IF NOT EXISTS " + RECIPE_TABLE + "("
+                + KEY_RECIPE_NAME + " VARCHAR," + KEY_INGREDIENTS + " VARCHAR," + KEY_INSTRUCTIONS + " VARCHAR," + KEY_USER_NAME + " VARCHAR," +
+                KEY_RECIPE_RATE + " INTEGER," + "FOREIGN KEY(" + KEY_USER_NAME + ") REFERENCES " + USER_TABLE + "(" + USER_TABLE + "))";
+        db.execSQL(CREATE_RECIPE_TABLE);
+
     }
 
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_NAME + "("
+        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + USER_TABLE + "("
                 + KEY_USER_NAME + " VARCHAR PRIMARY KEY," + KEY_PASSWORD + " VARCHAR" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
+
+        String CREATE_RECIPE_TABLE = "CREATE TABLE " + RECIPE_TABLE + "("
+                + KEY_RECIPE_NAME + " VARCHAR," + KEY_INGREDIENTS + " VARCHAR," + KEY_INSTRUCTIONS + " VARCHAR," + KEY_USER_NAME + " VARCHAR," +
+                KEY_RECIPE_RATE + " INTEGER," + "FOREIGN KEY(" + KEY_USER_NAME + ") REFERENCES " + USER_TABLE + "(" + USER_TABLE + "))";
+        db.execSQL(CREATE_RECIPE_TABLE);
     }
 
     // Upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + USER_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + RECIPE_TABLE);
 
         // Create tables again
         onCreate(db);
@@ -64,7 +89,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_PASSWORD, user.getPassword()); // Contact Phone
 
         // Inserting Row
-        long number = db.insert(TABLE_NAME, null, values);
+        long number = db.insert(USER_TABLE, null, values);
         db.close(); // Closing database connection
         return number;
     }
@@ -75,7 +100,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor resultSet = null;
         try{
-            resultSet = db.rawQuery("SELECT * FROM " + TABLE_NAME + " where " + KEY_PASSWORD + " = '" + sPassword + "' and " + KEY_USER_NAME + " = '" + sUserName + "';",null);
+            resultSet = db.rawQuery("SELECT * FROM " + USER_TABLE + " where " + KEY_PASSWORD + " = '" + sPassword + "' and " + KEY_USER_NAME + " = '" + sUserName + "';",null);
         }catch(Exception e) {
             Log.e("Error: ", e.toString());
         }
@@ -94,7 +119,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<User>();
         // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
+        String selectQuery = "SELECT  * FROM " + USER_TABLE;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -114,9 +139,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return userList;
     }
 
-    // Getting contacts Count
+    // Getting users Count
     public int getUsersCount() {
-        String countQuery = "SELECT  * FROM " + TABLE_NAME;
+        String countQuery = "SELECT  * FROM " + USER_TABLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        //cursor.close();
+
+        // return count
+        return cursor.getCount();
+    }
+    // Getting contacts Count
+    public int getRecipeCount() {
+        String countQuery = "SELECT  * FROM " + RECIPE_TABLE;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
         //cursor.close();
@@ -126,10 +161,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     public void deleteDB() {
-        String countQuery = "DELETE  * FROM " + TABLE_NAME;
+        //String countQuery = "DELETE  * FROM " + USER_TABLE;
         SQLiteDatabase db = this.getReadableDatabase();
-        db.execSQL("delete from "+ TABLE_NAME);
-        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        //db.execSQL("delete from "+ USER_TABLE);
+        db.execSQL("DROP TABLE " + USER_TABLE);
+        db.execSQL("DROP TABLE " + RECIPE_TABLE);
     }
 
 }

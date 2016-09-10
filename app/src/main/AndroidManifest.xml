@@ -3,6 +3,7 @@
     package="com.example.shayzambrovski.digitalrecipe" >
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,7 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".AboutScreen"></activity>
+        <activity android:name=".MenuScreen"></activity>
         <activity android:name=".RegisterScreen"></activity>
+        <activity android:name=".NewRecipeScreen"></activity>
     </application>
 
 </manifest>

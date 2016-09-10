@@ -24,10 +24,12 @@ public class MainScreen extends AppCompatActivity {
     Button logIn;
     Button register;
     Button about;
+    Bundle extras;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
+        extras = new Bundle();
         bindUI();
     }
     public void bindUI() {
@@ -53,12 +55,16 @@ public class MainScreen extends AppCompatActivity {
                     } else {
                         User oUser = db.getUser(sUserName, sPassword);
                         if (oUser == null) {
-                            DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.authentication_error), (getResources().getString(R.string.cant_found_user) + ": " + sUserName));
+                            DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.authentication_error), (getResources().getString(R.string.cant_found_user)));
                             dm.show();
                         }
                         else {
-                            DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.success),sUserName + ": " + getResources().getString(R.string.log_in_success));
-                            dm.show();
+                            //DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.success),sUserName + ": " + getResources().getString(R.string.log_in_success));
+                            //dm.show();
+
+                            Intent myIntent = new Intent(MainScreen.this, MenuScreen.class);
+                            myIntent.putExtra("key", sUserName); //Optional parameters
+                            startActivity(myIntent);
                         }
                     }
 
