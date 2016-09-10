@@ -20,5 +20,26 @@
     <string name="see_all_recipes">All users recipes</string>
     <string name="see_top_rated_recipes">Top rated recipes</string>
     <string name="log_out">Log out</string>
+    <string name="select_ingredient">Please select ingredient</string>
+
+    <string name="ingredient_prompt">Choose an ingredient</string>
+
+    <string-array name="ingredient_arrays">
+        <item>Choose an ingredient</item>
+        <item>Suger</item>
+        <item>Salt</item>
+        <item>Milk</item>
+        <item>Water</item>
+        <item>Oil</item>
+        <item>Chicken</item>
+        <item>Biff</item>
+        <item>Pork</item>
+        <item>Pepper</item>
+        <item>Rice</item>
+        <item>Pasta</item>
+        <item>Beans</item>
+        <item>Lentils</item>
+        <item>Potato</item>
+    </string-array>
 
 </resources>
