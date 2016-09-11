@@ -27,6 +27,7 @@
         android:id="@+id/new_recipe"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
+        android:textSize="10pt"
         android:layout_marginBottom="10pt"/>
     <Button
         android:layout_width="90pt"
@@ -36,6 +37,7 @@
         android:id="@+id/see_my_recipe"
         android:layout_below="@+id/new_recipe"
         android:layout_alignStart="@+id/new_recipe"
+        android:textSize="10pt"
         android:layout_marginBottom="10pt"/>
     <Button
         android:layout_width="90pt"
@@ -45,6 +47,7 @@
         android:id="@+id/see_all_recipe"
         android:layout_below="@+id/see_my_recipe"
         android:layout_alignStart="@+id/new_recipe"
+        android:textSize="10pt"
         android:layout_marginBottom="10pt"/>
 
     <Button
@@ -55,6 +58,7 @@
         android:id="@+id/see_top_rated_recipes"
         android:layout_below="@+id/see_all_recipe"
         android:layout_alignStart="@+id/new_recipe"
+        android:textSize="10pt"
         android:layout_marginBottom="10pt"/>
 
 

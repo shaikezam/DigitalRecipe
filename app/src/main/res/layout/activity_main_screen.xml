@@ -27,6 +27,7 @@
         android:layout_above="@+id/password_id"
         android:layout_alignStart="@+id/password_id"
         android:gravity="center"
+        android:textSize="10pt"
         android:background="@drawable/rounded_edittext"/>
 
     <EditText
@@ -40,6 +41,7 @@
         android:inputType="textPassword"
         android:layout_marginBottom="10pt"
         android:gravity="center"
+        android:textSize="10pt"
         android:background="@drawable/rounded_edittext"/>
     <Button
         android:layout_width="90pt"
@@ -48,6 +50,7 @@
         android:text="@string/log_in"
         android:id="@+id/log_in_id"
         android:layout_marginBottom="10pt"
+        android:textSize="10pt"
         android:layout_below="@+id/password_id"
         android:layout_centerHorizontal="true" />
     <Button
@@ -57,6 +60,7 @@
         android:text="@string/register"
         android:layout_below="@+id/log_in_id"
         android:layout_alignStart="@+id/log_in_id"
+        android:textSize="10pt"
         android:id="@+id/register_id"/>
     <Button
         android:layout_width="45pt"
@@ -64,6 +68,7 @@
         android:background="@drawable/rounded_button"
         android:text="@string/about"
         android:layout_alignParentBottom="true"
+        android:textSize="10pt"
         android:layout_alignParentStart="true"
         android:id="@+id/about_id" />
 
