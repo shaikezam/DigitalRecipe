@@ -35,6 +35,7 @@ public class NewRecipeScreen extends AppCompatActivity {
         bindUI(sUserName);
     }
     public void bindUI(final String sUserName) {
+
         final Context oContext = this;
         this.spinner = (Spinner)findViewById(R.id.spinner1);
         ArrayAdapter<CharSequence> foodadapter = ArrayAdapter.createFromResource(this, R.array.ingredient_arrays, R.layout.spinner_item);
@@ -43,6 +44,7 @@ public class NewRecipeScreen extends AppCompatActivity {
         this.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
                                        View view, int pos, long id) {
+
                 String selectedText = parent.getItemAtPosition(pos).toString();
                 if(!selectedText.equals(getResources().getString(R.string.ingredient_prompt))) {
                     parent.setSelection(0);
@@ -80,10 +82,23 @@ public class NewRecipeScreen extends AppCompatActivity {
                     int count = 0;
                     int i = 0;
                     ArrayList<TextView> aTextViews = new ArrayList<TextView>();
+                    ArrayList<EditText> aEditTexts = new ArrayList<EditText>();
                     for( ; i < myLayout.getChildCount(); i++ )
+
                         if( myLayout.getChildAt( i ) instanceof TextView ) {
+                            if(((TextView) myLayout.getChildAt( i )).getText().equals(selectedText)) {
+
+                                DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.duplicate_ingredient_title), (getResources().getString(R.string.duplicate_ingredient)));
+                                dm.show();
+
+                                return;
+                            }
                             myLayout.getChildAt( i ).setId(i);
                             aTextViews.add((TextView) myLayout.getChildAt( i ));
+                            count++;
+                        } else if( myLayout.getChildAt( i ) instanceof EditText ) {
+                            myLayout.getChildAt( i ).setId(i);
+                            aEditTexts.add((EditText) myLayout.getChildAt( i ));
                             count++;
                         }
                     myTextView.setId(i);

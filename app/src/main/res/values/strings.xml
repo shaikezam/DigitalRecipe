@@ -24,23 +24,49 @@
 
     <string name="ingredient_prompt">Choose an ingredient</string>
     <string name="submit_ingredient">Next</string>
+    <string name="duplicate_ingredient_title">Duplicate ingredient</string>
+    <string name="duplicate_ingredient">Ingredient already exist, choose another or click NEXT</string>
 
     <string-array name="ingredient_arrays">
         <item>Choose an ingredient</item>
-        <item>Suger</item>
-        <item>Salt</item>
-        <item>Milk</item>
+        <item>Alflfa</item>
+        <item>Anise</item>
+        <item>Apple</item>
+        <item>Basil</item>
+        <item>Bay</item>
+        <item>Black Pepper</item>
+        <item>Brown Sugar</item>
+        <item>Butter</item>
+        <item>Cacao</item>
+        <item>Caffeine</item>
+        <item>Egg</item>
         <item>Water</item>
-        <item>Oil</item>
+        <item>Salt</item>
         <item>Chicken</item>
         <item>Biff</item>
         <item>Pork</item>
-        <item>Pepper</item>
-        <item>Rice</item>
-        <item>Pasta</item>
-        <item>Beans</item>
-        <item>Lentils</item>
+        <item>Oysters</item>
+        <item>Tomato</item>
+        <item>Mango</item>
+        <item>Chili</item>
+        <item>Suger</item>
+        <item>Chocolate</item>
+        <item>Whine</item>
+        <item>Beer</item>
+        <item>Fish</item>
         <item>Potato</item>
+        <item>Sweet Potato</item>
+        <item>Cucumber</item>
+        <item>Oil</item>
+        <item>Olive Oil</item>
+        <item>Cheese</item>
+        <item>Mayonnaise</item>
+        <item>Ketchup</item>
+        <item>Flour</item>
+        <item>Breadcrumbs</item>
+        <item>Bread</item>
+
+
     </string-array>
 
 </resources>
