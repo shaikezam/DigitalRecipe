@@ -1,6 +1,7 @@
 package com.example.shayzambrovski.digitalrecipe;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -49,18 +50,21 @@ public class NewRecipeScreen extends AppCompatActivity {
                     int myEditTextWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, 120, getResources().getDisplayMetrics());
                     int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, 13, getResources().getDisplayMetrics());
                     int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, 60, getResources().getDisplayMetrics());
-                    int textSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, 3, getResources().getDisplayMetrics());
+                    int textViewTextSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, 3, getResources().getDisplayMetrics());
+                    int editTextTextSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, 3, getResources().getDisplayMetrics());
                     int marginTop = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, 10, getResources().getDisplayMetrics());
 
 
                     EditText myEditText = new EditText(oContext);
                     myEditText.setHint("Please set amount");
-                    myEditText.setBackground(getResources().getDrawable(R.drawable.rounded_edittext));
+                    myEditText.setBackground(getResources().getDrawable(R.drawable.rounded_option));
                     myEditText.setHeight(height);
                     myEditText.setWidth(myEditTextWidth);
                     //myEditText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    myEditText.setTextSize(textSize);
+                    myEditText.setTextSize(editTextTextSize);
                     myEditText.setGravity(Gravity.CENTER | Gravity.BOTTOM);
+                    myEditText.setPadding(0, 4, 0, 0);
+                    myEditText.setHintTextColor(Color.parseColor("#A38282"));
 
                     TextView myTextView = new TextView(oContext);
                     myTextView.setText(selectedText);
@@ -68,8 +72,9 @@ public class NewRecipeScreen extends AppCompatActivity {
                     RelativeLayout myLayout = (RelativeLayout)findViewById(R.id.shaike);
                     myTextView.setHeight(height);
                     myTextView.setWidth(width);
+
                     myTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    myTextView.setTextSize(textSize);
+                    myTextView.setTextSize(textViewTextSize);
                     myTextView.setGravity(Gravity.CENTER | Gravity.BOTTOM);
 
                     int count = 0;

@@ -23,6 +23,7 @@
     <string name="select_ingredient">Please select ingredient</string>
 
     <string name="ingredient_prompt">Choose an ingredient</string>
+    <string name="recipe_desc">Please type your recipe</string>
 
     <string-array name="ingredient_arrays">
         <item>Choose an ingredient</item>
