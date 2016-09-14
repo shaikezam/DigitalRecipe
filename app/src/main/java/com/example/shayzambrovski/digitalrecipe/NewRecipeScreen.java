@@ -86,7 +86,7 @@ public class NewRecipeScreen extends AppCompatActivity {
                             aTextViews.add((TextView) myLayout.getChildAt( i ));
                             count++;
                         }
-                    myTextView.setId(311);
+                    myTextView.setId(i);
                     Log.e("Error :", String.valueOf(aTextViews.size()));
                     RelativeLayout.LayoutParams myTextViewParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                     RelativeLayout.LayoutParams myEditTextParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -101,8 +101,9 @@ public class NewRecipeScreen extends AppCompatActivity {
                     myTextViewParams.setMargins(0, marginTop, 0, 0);
                     myLayout.addView(myTextView, myTextViewParams);
                     myEditTextParams.setMargins(0, marginTop, 0, 0);
-                    myEditTextParams.addRule(RelativeLayout.RIGHT_OF, 311);
+                    myEditTextParams.addRule(RelativeLayout.RIGHT_OF, i);
                     myLayout.addView(myEditText, myEditTextParams);
+
                 }
             }
 
