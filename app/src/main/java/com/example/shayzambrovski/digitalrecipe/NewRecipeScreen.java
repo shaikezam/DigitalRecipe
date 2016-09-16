@@ -8,8 +8,11 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -21,11 +24,16 @@ import java.util.ArrayList;
 public class NewRecipeScreen extends AppCompatActivity {
     RelativeLayout relativeLayout;
     Spinner spinner;
+    Button next;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_recipe_screen);
+        View view = findViewById(android.R.id.content);
+        Animation mLoadAnimation = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in);
+        mLoadAnimation.setDuration(1200);
+        view.startAnimation(mLoadAnimation);
         Bundle extras = getIntent().getExtras();
         String sUserName = extras.getString("key");
         relativeLayout = new RelativeLayout(this);
@@ -83,14 +91,13 @@ public class NewRecipeScreen extends AppCompatActivity {
                     int i = 0;
                     ArrayList<TextView> aTextViews = new ArrayList<TextView>();
                     ArrayList<EditText> aEditTexts = new ArrayList<EditText>();
-                    for( ; i < myLayout.getChildCount(); i++ )
+                    for( ; i < myLayout.getChildCount(); i++ ) {
 
                         if( myLayout.getChildAt( i ) instanceof TextView ) {
                             if(((TextView) myLayout.getChildAt( i )).getText().equals(selectedText)) {
 
                                 DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.duplicate_ingredient_title), (getResources().getString(R.string.duplicate_ingredient)));
                                 dm.show();
-
                                 return;
                             }
                             myLayout.getChildAt( i ).setId(i);
@@ -101,8 +108,9 @@ public class NewRecipeScreen extends AppCompatActivity {
                             aEditTexts.add((EditText) myLayout.getChildAt( i ));
                             count++;
                         }
+                        //Log.e("Error: ", String.valueOf(i));
+                    }
                     myTextView.setId(i);
-                    Log.e("Error :", String.valueOf(aTextViews.size()));
                     RelativeLayout.LayoutParams myTextViewParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                     RelativeLayout.LayoutParams myEditTextParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                     if(count == 0) {
@@ -120,12 +128,36 @@ public class NewRecipeScreen extends AppCompatActivity {
                     myLayout.addView(myEditText, myEditTextParams);
 
                 }
+
             }
 
             public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
             }
 
+        });
+        this.next = (Button)findViewById(R.id.next);
+
+        this.next.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try{
+                    RelativeLayout myLayout = (RelativeLayout)findViewById(R.id.shaike);
+                    for( int i = 0; i < myLayout.getChildCount(); i++ ) {
+                        if (myLayout.getChildAt(i) instanceof EditText) {
+                            String sEditText = ((EditText) myLayout.getChildAt(i)).getText().toString();
+                            if (sEditText.equals("")) {
+                                DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.missing_ingredient), (getResources().getString(R.string.missing_ingredient_desc)));
+                                dm.show();
+                                return;
+                            }
+                        }
+                    }
+                    //Intent myIntent = new Intent(MainScreen.this, RegisterScreen.class);
+                    //startActivity(myIntent);
+                } catch(Exception e) {
+                    Log.e("Error: ", e.toString());
+                }
+            }
         });
     }
 }

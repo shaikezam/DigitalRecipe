@@ -26,6 +26,8 @@
     <string name="submit_ingredient">Next</string>
     <string name="duplicate_ingredient_title">Duplicate ingredient</string>
     <string name="duplicate_ingredient">Ingredient already exist, choose another or click NEXT</string>
+    <string name="missing_ingredient">Missing ingredient</string>
+    <string name="missing_ingredient_desc">Please fill all ingredients texts fields</string>
 
     <string-array name="ingredient_arrays">
         <item>Choose an ingredient</item>

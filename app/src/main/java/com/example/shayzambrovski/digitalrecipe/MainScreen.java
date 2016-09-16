@@ -1,21 +1,15 @@
 package com.example.shayzambrovski.digitalrecipe;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MainScreen extends AppCompatActivity {
 
@@ -29,6 +23,10 @@ public class MainScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
+        View view = findViewById(android.R.id.content);
+        Animation mLoadAnimation = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in);
+        mLoadAnimation.setDuration(1200);
+        view.startAnimation(mLoadAnimation);
         extras = new Bundle();
         bindUI();
     }
@@ -65,6 +63,7 @@ public class MainScreen extends AppCompatActivity {
                             Intent myIntent = new Intent(MainScreen.this, MenuScreen.class);
                             myIntent.putExtra("key", sUserName); //Optional parameters
                             startActivity(myIntent);
+                            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         }
                     }
 

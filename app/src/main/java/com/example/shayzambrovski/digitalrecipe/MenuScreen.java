@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 public class MenuScreen extends AppCompatActivity {
@@ -21,6 +23,10 @@ public class MenuScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_screen);
+        View view = findViewById(android.R.id.content);
+        Animation mLoadAnimation = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in);
+        mLoadAnimation.setDuration(1200);
+        view.startAnimation(mLoadAnimation);
         Bundle extras = getIntent().getExtras();
         String sUserName = extras.getString("key");
         final Context oContext = this;
