@@ -63,7 +63,6 @@ public class MainScreen extends AppCompatActivity {
                             Intent myIntent = new Intent(MainScreen.this, MenuScreen.class);
                             myIntent.putExtra("key", sUserName); //Optional parameters
                             startActivity(myIntent);
-                            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         }
                     }
 

@@ -142,16 +142,24 @@ public class NewRecipeScreen extends AppCompatActivity {
             public void onClick(View v) {
                 try{
                     RelativeLayout myLayout = (RelativeLayout)findViewById(R.id.shaike);
+                    String sIngredients = "";
                     for( int i = 0; i < myLayout.getChildCount(); i++ ) {
-                        if (myLayout.getChildAt(i) instanceof EditText) {
+                        if(myLayout.getChildAt(i) instanceof TextView && !(myLayout.getChildAt(i) instanceof Button) && !(myLayout.getChildAt(i) instanceof EditText)) {
+                            String sViewText = ((TextView) myLayout.getChildAt(i)).getText().toString();
+                            sIngredients += sViewText + "@";
+                        }
+                        else if (myLayout.getChildAt(i) instanceof EditText) {
                             String sEditText = ((EditText) myLayout.getChildAt(i)).getText().toString();
                             if (sEditText.equals("")) {
                                 DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.missing_ingredient), (getResources().getString(R.string.missing_ingredient_desc)));
                                 dm.show();
                                 return;
+                            } else {
+                                sIngredients += sEditText + "@";
                             }
                         }
                     }
+                    Log.e("Error :", sIngredients);
                     //Intent myIntent = new Intent(MainScreen.this, RegisterScreen.class);
                     //startActivity(myIntent);
                 } catch(Exception e) {
