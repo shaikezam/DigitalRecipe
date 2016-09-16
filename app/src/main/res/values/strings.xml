@@ -24,6 +24,9 @@
 
     <string name="ingredient_prompt">Choose an ingredient</string>
     <string name="submit_ingredient">Next</string>
+    <string name="recipe_name">Enter recipe name</string>
+    <string name="recipe_desc">Enter recipe description</string>
+    <string name="save_recipe">Save</string>
     <string name="duplicate_ingredient_title">Duplicate ingredient</string>
     <string name="duplicate_ingredient">Ingredient already exist, choose another or click NEXT</string>
     <string name="missing_ingredient">Missing ingredient</string>

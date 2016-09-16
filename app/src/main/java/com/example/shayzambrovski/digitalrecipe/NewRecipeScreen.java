@@ -1,6 +1,7 @@
 package com.example.shayzambrovski.digitalrecipe;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -38,8 +39,7 @@ public class NewRecipeScreen extends AppCompatActivity {
         String sUserName = extras.getString("key");
         relativeLayout = new RelativeLayout(this);
         DatabaseHandler db = new DatabaseHandler(this);
-        Log.e("Error: ", sUserName);
-        extras = new Bundle();
+        //Log.e("Error: ", sUserName);
         bindUI(sUserName);
     }
     public void bindUI(final String sUserName) {
@@ -160,8 +160,9 @@ public class NewRecipeScreen extends AppCompatActivity {
                         }
                     }
                     Log.e("Error :", sIngredients);
-                    //Intent myIntent = new Intent(MainScreen.this, RegisterScreen.class);
-                    //startActivity(myIntent);
+                    Intent myIntent = new Intent(NewRecipeScreen.this, SaveRecipeScreen.class);
+                    myIntent.putExtra("key", sUserName);
+                    startActivity(myIntent);
                 } catch(Exception e) {
                     Log.e("Error: ", e.toString());
                 }

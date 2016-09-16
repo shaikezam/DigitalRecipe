@@ -20,6 +20,7 @@
         <activity android:name=".MenuScreen"></activity>
         <activity android:name=".RegisterScreen"></activity>
         <activity android:name=".NewRecipeScreen"></activity>
+        <activity android:name=".SaveRecipeScreen"></activity>
     </application>
 
 </manifest>
