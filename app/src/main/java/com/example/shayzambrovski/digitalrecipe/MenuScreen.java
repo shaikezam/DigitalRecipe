@@ -50,5 +50,19 @@ public class MenuScreen extends AppCompatActivity {
                 }
             }
         });
+
+        this.myRecipe = (Button)findViewById(R.id.see_my_recipe);
+
+        this.myRecipe.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try{
+                    Intent myIntent = new Intent(MenuScreen.this, MyRecipes.class);
+                    myIntent.putExtra("key", sUserName); //Optional parameters
+                    startActivity(myIntent);
+                } catch(Exception e) {
+                    Log.e("Error: ", e.toString());
+                }
+            }
+        });
     }
 }

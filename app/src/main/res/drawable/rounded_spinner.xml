@@ -13,5 +13,6 @@
     <item
         android:state_focused="true"
         android:state_pressed="true"
+        android:textSize="10pt"
         android:color="@android:color/black" />
 </shape>

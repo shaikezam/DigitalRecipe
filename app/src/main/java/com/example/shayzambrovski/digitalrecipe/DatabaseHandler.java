@@ -132,7 +132,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return user;
     }
 
-    // Getting All Contacts
+    // Getting All Users
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<User>();
         // Select All Query
@@ -147,7 +147,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 User user = new User();
                 user.setUserName(cursor.getString(0));
                 user.setPassword(cursor.getString(1));
-                // Adding contact to list
+                // Adding user to list
                 userList.add(user);
             } while (cursor.moveToNext());
         }
@@ -165,6 +165,59 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // return count
         return cursor.getCount();
+    }
+
+    // Getting All Recipes
+    public List<Recipe> getAllRecipes() {
+        List<Recipe> recipeList = new ArrayList<Recipe>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + RECIPE_TABLE;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Recipe recipe = new Recipe();
+                recipe.setName(cursor.getString(0));
+                recipe.setInstructions(cursor.getString(1));
+                recipe.setIngredients(cursor.getString(2));
+                recipe.setUserName(cursor.getString(3));
+                recipe.setRate(Integer.parseInt(cursor.getString(4)));
+                // Adding recipes to list
+                recipeList.add(recipe);
+            } while (cursor.moveToNext());
+        }
+
+        // return recipe list
+        return recipeList;
+    }
+
+    public List<Recipe> getRecipesByUserName(String sUserName) {
+        List<Recipe> recipeList = new ArrayList<Recipe>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + RECIPE_TABLE + " WHERE " + KEY_USER_NAME + " = '" + sUserName + "'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Recipe recipe = new Recipe();
+                recipe.setName(cursor.getString(0));
+                recipe.setInstructions(cursor.getString(1));
+                recipe.setIngredients(cursor.getString(2));
+                recipe.setUserName(cursor.getString(3));
+                recipe.setRate(Integer.parseInt(cursor.getString(4)));
+                // Adding recipes to list
+                recipeList.add(recipe);
+            } while (cursor.moveToNext());
+        }
+
+        // return recipe list
+        return recipeList;
     }
     // Getting recipe Count
     public int getRecipeCount() {

@@ -18,6 +18,10 @@ public class Recipe {
         this.rate = rate;
     }
 
+    public Recipe() {
+
+    }
+
     public String getName() {
         return name;
     }

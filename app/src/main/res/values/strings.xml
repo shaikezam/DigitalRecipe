@@ -34,6 +34,7 @@
     <string name="missing_ingredient_desc">Please fill all ingredients texts fields</string>
     <string name="recipe_registered">Success</string>
     <string name="recipe_saved">The recipe is saved</string>
+    <string name="select_recipe">Please select a recipe</string>
 
     <string-array name="ingredient_arrays">
         <item>Choose an ingredient</item>
