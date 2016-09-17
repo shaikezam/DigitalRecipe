@@ -3,15 +3,15 @@ package com.example.shayzambrovski.digitalrecipe;
 /**
  * Created by Shay Zambrovski on 07/09/2016.
  */
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -80,7 +80,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * All CRUD(Create, Read, Update, Delete) Operations
      */
 
-    // Adding new contact
+    // Adding new user
     long addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -94,7 +94,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return number;
     }
 
-    // Getting single contact
+    long addRecipe(Recipe recipe) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_RECIPE_NAME, recipe.getName()); // Recipe Name
+        values.put(KEY_INGREDIENTS, recipe.getIngredients()); // Recipe Ingredients
+        values.put(KEY_INSTRUCTIONS, recipe.getInstructions()); // Recipe Instructions
+        values.put(KEY_USER_NAME, recipe.getUserName()); // Recipe UserName
+        values.put(KEY_RECIPE_RATE, recipe.getRate()); // Recipe Rate
+
+
+        // Inserting Row
+        long number = db.insert(RECIPE_TABLE, null, values);
+        db.close(); // Closing database connection
+        return number;
+    }
+
+    // Getting single user
     User getUser(String sUserName, String sPassword) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -149,7 +166,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return count
         return cursor.getCount();
     }
-    // Getting contacts Count
+    // Getting recipe Count
     public int getRecipeCount() {
         String countQuery = "SELECT  * FROM " + RECIPE_TABLE;
         SQLiteDatabase db = this.getReadableDatabase();

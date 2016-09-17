@@ -162,6 +162,7 @@ public class NewRecipeScreen extends AppCompatActivity {
                     Log.e("Error :", sIngredients);
                     Intent myIntent = new Intent(NewRecipeScreen.this, SaveRecipeScreen.class);
                     myIntent.putExtra("key", sUserName);
+                    myIntent.putExtra("ingredients", sIngredients);
                     startActivity(myIntent);
                 } catch(Exception e) {
                     Log.e("Error: ", e.toString());

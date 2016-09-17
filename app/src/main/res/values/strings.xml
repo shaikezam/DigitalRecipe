@@ -25,12 +25,15 @@
     <string name="ingredient_prompt">Choose an ingredient</string>
     <string name="submit_ingredient">Next</string>
     <string name="recipe_name">Enter recipe name</string>
-    <string name="recipe_desc">Enter recipe description</string>
+    <string name="recipe_desc">Enter recipe instructions</string>
     <string name="save_recipe">Save</string>
     <string name="duplicate_ingredient_title">Duplicate ingredient</string>
     <string name="duplicate_ingredient">Ingredient already exist, choose another or click NEXT</string>
     <string name="missing_ingredient">Missing ingredient</string>
+    <string name="missing_data">Missing data</string>
     <string name="missing_ingredient_desc">Please fill all ingredients texts fields</string>
+    <string name="recipe_registered">Success</string>
+    <string name="recipe_saved">The recipe is saved</string>
 
     <string-array name="ingredient_arrays">
         <item>Choose an ingredient</item>
