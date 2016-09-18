@@ -99,8 +99,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_RECIPE_NAME, recipe.getName()); // Recipe Name
-        values.put(KEY_INGREDIENTS, recipe.getIngredients()); // Recipe Ingredients
         values.put(KEY_INSTRUCTIONS, recipe.getInstructions()); // Recipe Instructions
+        values.put(KEY_INGREDIENTS, recipe.getIngredients()); // Recipe Ingredients
         values.put(KEY_USER_NAME, recipe.getUserName()); // Recipe UserName
         values.put(KEY_RECIPE_RATE, recipe.getRate()); // Recipe Rate
 
@@ -207,8 +207,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             do {
                 Recipe recipe = new Recipe();
                 recipe.setName(cursor.getString(0));
-                recipe.setInstructions(cursor.getString(1));
-                recipe.setIngredients(cursor.getString(2));
+                recipe.setIngredients(cursor.getString(1));
+                recipe.setInstructions(cursor.getString(2));
                 recipe.setUserName(cursor.getString(3));
                 recipe.setRate(Integer.parseInt(cursor.getString(4)));
                 // Adding recipes to list
