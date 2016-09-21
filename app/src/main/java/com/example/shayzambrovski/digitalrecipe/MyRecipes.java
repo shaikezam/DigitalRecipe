@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MyRecipes extends AppCompatActivity {
@@ -63,18 +64,18 @@ public class MyRecipes extends AppCompatActivity {
                     String selectedText = parent.getItemAtPosition(pos).toString();
                     if(selectedText.equals(getResources().getString(R.string.select_recipe)))
                         return;
-                    Log.e("Error :", selectedText + " " + String.valueOf(pos));
 
-                    RelativeLayout myLayout = (RelativeLayout)findViewById(R.id.shaike);
-                    int myEditTextWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, 120, getResources().getDisplayMetrics());
+                    removeViews();
+
+                    RelativeLayout myLayout = (RelativeLayout)findViewById(R.id.myView);
                     int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, 13, getResources().getDisplayMetrics());
-                    int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, 60, getResources().getDisplayMetrics());
+                    int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, 90, getResources().getDisplayMetrics());
                     int textViewTextSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, 3, getResources().getDisplayMetrics());
-                    int editTextTextSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, 3, getResources().getDisplayMetrics());
                     int marginTop = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, 10, getResources().getDisplayMetrics());
 
-                    TextView myRecipeName = new TextView(oContext);
+                    /*TextView myRecipeName = new TextView(oContext);
                     myRecipeName.setText(selectedText);
+                    myRecipeName.setId(R.id.helloWorld);
                     myRecipeName.setBackground(getResources().getDrawable(R.drawable.rounded_option));
                     myRecipeName.setHeight(height);
                     myRecipeName.setWidth(width);
@@ -85,12 +86,15 @@ public class MyRecipes extends AppCompatActivity {
                     //myRecipeName.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
                     RelativeLayout.LayoutParams myRecipeNameParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                     myRecipeNameParams.addRule(RelativeLayout.BELOW, R.id.spinner1);
-                    myRecipeNameParams.setMargins(0, marginTop, 0, 0);
+                    //myRecipeNameParams.setMargins(0, marginTop, 0, 0);
+                    myRecipeNameParams.setMargins(0, 0, 0, marginTop);
                     myRecipeNameParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-                    myLayout.addView(myRecipeName, myRecipeNameParams);
+                    myLayout.addView(myRecipeName, myRecipeNameParams);*/
 
                     String[] aIngredients = recipeList.get(pos - 1).getIngredients().split("@", -1);
+                    Arrays.copyOf(aIngredients, aIngredients.length-1);
                     ArrayList<TextView> aTextView = new ArrayList<TextView>();
+                    TextView tempTextView = null;
                     for(int i = 0, j = 0 ; i < aIngredients.length / 2; i++) {
                         TextView oTextView = new TextView(oContext);
                         oTextView.setText(aIngredients[j++] + " " + aIngredients[j++]);
@@ -103,13 +107,16 @@ public class MyRecipes extends AppCompatActivity {
                         oTextView.setTextSize(textViewTextSize);
                         RelativeLayout.LayoutParams oTextViewParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                         if(i == 0) {
-                            oTextViewParams.addRule(RelativeLayout.BELOW, myRecipeName.getId());
+                            //oTextViewParams.addRule(RelativeLayout.BELOW, R.id.myView);
+                            oTextViewParams.addRule(RelativeLayout.ALIGN_TOP, RelativeLayout.CENTER_IN_PARENT);
+                            //oTextViewParams.setMargins(0, 0, 0, marginTop*2);
                         } else {
-                            oTextViewParams.addRule(RelativeLayout.BELOW, aTextView.get(i-1).getId());
+                            oTextViewParams.addRule(RelativeLayout.BELOW, tempTextView.getId());
+                            oTextViewParams.setMargins(0, 0, 0, marginTop);
                         }
-                        oTextViewParams.setMargins(0, marginTop, 0, 0);
-                        oTextViewParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+                        //oTextViewParams.addRule(RelativeLayout.CENTER_IN_PARENT);
                         aTextView.add(oTextView);
+                        tempTextView = oTextView;
                         myLayout.addView(oTextView, oTextViewParams);
                     }
 
@@ -122,10 +129,9 @@ public class MyRecipes extends AppCompatActivity {
                     myRecipeInstructions.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                     myRecipeInstructions.setTextSize(textViewTextSize);
 
-                    //myRecipeName.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
                     RelativeLayout.LayoutParams myRecipeInstructionsParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                     myRecipeInstructionsParams.addRule(RelativeLayout.BELOW, aTextView.get(aTextView.size() - 1).getId());
-                    myRecipeInstructionsParams.setMargins(0, marginTop, 0, 0);
+
                     myRecipeInstructionsParams.addRule(RelativeLayout.CENTER_IN_PARENT);
                     myLayout.addView(myRecipeInstructions, myRecipeInstructionsParams);
                 }
@@ -136,6 +142,18 @@ public class MyRecipes extends AppCompatActivity {
 
             });
 
+        }catch(Exception e) {
+            Log.e("Error: ", e.toString());
+        }
+    }
+    public void removeViews() {
+        try {
+                RelativeLayout myLayout = (RelativeLayout)findViewById(R.id.myView);
+                for(int i = 0 ; i < myLayout.getChildCount(); i++ ) {
+                    if( myLayout.getChildAt( i ) instanceof TextView ) {
+                        myLayout.removeView(myLayout.getChildAt( i ));
+                }
+            }
         }catch(Exception e) {
             Log.e("Error: ", e.toString());
         }
