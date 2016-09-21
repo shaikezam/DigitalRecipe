@@ -35,6 +35,8 @@
     <string name="recipe_registered">Success</string>
     <string name="recipe_saved">The recipe is saved</string>
     <string name="select_recipe">Please select a recipe</string>
+    <string name="rate_title">Error in rate</string>
+    <string name="rate_body">You can not rate your recipe</string>
 
     <string-array name="ingredient_arrays">
         <item>Choose an ingredient</item>

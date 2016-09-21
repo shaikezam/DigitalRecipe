@@ -4,12 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 
 import java.util.Arrays;
@@ -61,7 +63,34 @@ public class MyRecipes extends AppCompatActivity {
                     String selectedText = parent.getItemAtPosition(pos).toString();
                     if(selectedText.equals(getResources().getString(R.string.select_recipe)))
                         return;
-                    
+
+                    RatingBar ratingBar = (RatingBar)findViewById(R.id.my_rate_bar);
+                    final int numOfStars = recipeList.get(pos - 1).getRate();
+                    ratingBar.setRating(numOfStars);
+                    ratingBar.setVisibility(View.VISIBLE);
+
+                    /*ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                        public void onRatingChanged(RatingBar ratingBar, float rating,
+                                                    boolean fromUser) {
+                            ratingBar.setRating(numOfStars);
+                            Log.e("Error: ", "Shay");
+                            DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.rate_title), (getResources().getString(R.string.rate_body)));
+                            dm.show();
+                            return;
+                        }
+                    });*/
+
+                    ratingBar.setOnTouchListener(new View.OnTouchListener() {
+                                                     @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            if (event.getAction() == MotionEvent.ACTION_UP) {
+                                DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.rate_title), (getResources().getString(R.string.rate_body)));
+                                    dm.show();
+                            }
+                            return true;
+                        }
+                    });
+
                     String[] aIngredients = recipeList.get(pos - 1).getIngredients().split("@", -1);
                     String[] myIngredients = new String[(aIngredients.length / 2) + 1];
                     Arrays.copyOf(aIngredients, aIngredients.length-1);
