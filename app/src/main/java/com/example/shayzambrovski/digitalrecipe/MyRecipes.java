@@ -4,17 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.RelativeLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -64,76 +61,20 @@ public class MyRecipes extends AppCompatActivity {
                     String selectedText = parent.getItemAtPosition(pos).toString();
                     if(selectedText.equals(getResources().getString(R.string.select_recipe)))
                         return;
-
-                    removeViews();
-
-                    RelativeLayout myLayout = (RelativeLayout)findViewById(R.id.myView);
-                    int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, 13, getResources().getDisplayMetrics());
-                    int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, 90, getResources().getDisplayMetrics());
-                    int textViewTextSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, 3, getResources().getDisplayMetrics());
-                    int marginTop = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PT, 10, getResources().getDisplayMetrics());
-
-                    /*TextView myRecipeName = new TextView(oContext);
-                    myRecipeName.setText(selectedText);
-                    myRecipeName.setId(R.id.helloWorld);
-                    myRecipeName.setBackground(getResources().getDrawable(R.drawable.rounded_option));
-                    myRecipeName.setHeight(height);
-                    myRecipeName.setWidth(width);
-
-                    myRecipeName.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    myRecipeName.setTextSize(textViewTextSize);
-
-                    //myRecipeName.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-                    RelativeLayout.LayoutParams myRecipeNameParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                    myRecipeNameParams.addRule(RelativeLayout.BELOW, R.id.spinner1);
-                    //myRecipeNameParams.setMargins(0, marginTop, 0, 0);
-                    myRecipeNameParams.setMargins(0, 0, 0, marginTop);
-                    myRecipeNameParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-                    myLayout.addView(myRecipeName, myRecipeNameParams);*/
-
+                    
                     String[] aIngredients = recipeList.get(pos - 1).getIngredients().split("@", -1);
+                    String[] myIngredients = new String[(aIngredients.length / 2) + 1];
                     Arrays.copyOf(aIngredients, aIngredients.length-1);
-                    ArrayList<TextView> aTextView = new ArrayList<TextView>();
-                    TextView tempTextView = null;
+
                     for(int i = 0, j = 0 ; i < aIngredients.length / 2; i++) {
-                        TextView oTextView = new TextView(oContext);
-                        oTextView.setText(aIngredients[j++] + " " + aIngredients[j++]);
-                        oTextView.setBackground(getResources().getDrawable(R.drawable.rounded_option));
-                        oTextView.setHeight(height);
-                        oTextView.setWidth(width);
 
-                        oTextView.setId(i);
-                        oTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                        oTextView.setTextSize(textViewTextSize);
-                        RelativeLayout.LayoutParams oTextViewParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                        if(i == 0) {
-                            //oTextViewParams.addRule(RelativeLayout.BELOW, R.id.myView);
-                            oTextViewParams.addRule(RelativeLayout.ALIGN_TOP, RelativeLayout.CENTER_IN_PARENT);
-                            //oTextViewParams.setMargins(0, 0, 0, marginTop*2);
-                        } else {
-                            oTextViewParams.addRule(RelativeLayout.BELOW, tempTextView.getId());
-                            oTextViewParams.setMargins(0, 0, 0, marginTop);
-                        }
-                        //oTextViewParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-                        aTextView.add(oTextView);
-                        tempTextView = oTextView;
-                        myLayout.addView(oTextView, oTextViewParams);
+                        myIngredients[i] = aIngredients[j++] + " " + aIngredients[j++];
+
                     }
-
-                    TextView myRecipeInstructions = new TextView(oContext);
-                    myRecipeInstructions.setText(recipeList.get(pos - 1).getInstructions());
-                    myRecipeInstructions.setBackground(getResources().getDrawable(R.drawable.rounded_option));
-                    myRecipeInstructions.setHeight(height);
-                    myRecipeInstructions.setWidth(width);
-
-                    myRecipeInstructions.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    myRecipeInstructions.setTextSize(textViewTextSize);
-
-                    RelativeLayout.LayoutParams myRecipeInstructionsParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                    myRecipeInstructionsParams.addRule(RelativeLayout.BELOW, aTextView.get(aTextView.size() - 1).getId());
-
-                    myRecipeInstructionsParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-                    myLayout.addView(myRecipeInstructions, myRecipeInstructionsParams);
+                    myIngredients[myIngredients.length - 1] = recipeList.get(pos - 1).getInstructions();
+                    ListView listView = (ListView)findViewById(R.id.myListView);
+                    listView.setTextFilterEnabled(true);
+                    listView.setAdapter(new ArrayAdapter<String>(oContext, R.layout.my_item,myIngredients));
                 }
 
                 public void onNothingSelected(AdapterView<?> parentView) {
@@ -142,18 +83,6 @@ public class MyRecipes extends AppCompatActivity {
 
             });
 
-        }catch(Exception e) {
-            Log.e("Error: ", e.toString());
-        }
-    }
-    public void removeViews() {
-        try {
-                RelativeLayout myLayout = (RelativeLayout)findViewById(R.id.myView);
-                for(int i = 0 ; i < myLayout.getChildCount(); i++ ) {
-                    if( myLayout.getChildAt( i ) instanceof TextView ) {
-                        myLayout.removeView(myLayout.getChildAt( i ));
-                }
-            }
         }catch(Exception e) {
             Log.e("Error: ", e.toString());
         }
