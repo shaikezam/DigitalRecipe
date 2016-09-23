@@ -73,8 +73,12 @@ public class OtherRecipes extends AppCompatActivity {
                         @Override
                         public boolean onTouch(View v, MotionEvent event) {
                             if (event.getAction() == MotionEvent.ACTION_UP) {
-                                DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.rate_title), (getResources().getString(R.string.rate_body)));
-                                dm.show();
+                                float touchPositionX = event.getX();
+                                float width = ((RatingBar)findViewById(R.id.my_rate_bar)).getWidth();
+                                float starsf = (touchPositionX / width) * 5.0f;
+                                int stars = (int)starsf + 1;
+
+                                Log.e("Error: ", String.valueOf(stars));
                             }
                             return true;
                         }

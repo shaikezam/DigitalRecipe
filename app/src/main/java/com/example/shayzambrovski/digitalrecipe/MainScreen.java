@@ -133,7 +133,7 @@ public class MainScreen extends AppCompatActivity {
                     db.addUser((new User("Arnon", "123")));
                     db.addRecipe(new Recipe("Banana Bread", "Mix well by hand until all ingredients are just moistened.\nPour into greased loaf pan and bake 55-65 minutes.\nRemove from pan and cool before slicing.",
                             "Flour@2.5 cups@Suger@1 cup@baking powder@3.5 teaspoons@salt@1 teaspoon@vegetable oil@3 tablespoons@milk@0.75 cup@egg@1@banana@3",
-                            "Shay", 0));
+                            "Shay", 0, 0));
                     db.addRecipe(new Recipe("Apple Pie", "Preheat oven to 425°F / 220°C\n" +
                             "For the filling: mix ingredients together just before filling pie crust, dot top of apple mixture with 2 tablespoons of cold butter cubed.\n" +
                             "For the crust:\n" +
@@ -143,7 +143,7 @@ public class MainScreen extends AppCompatActivity {
                             "Fill with apples and top with 2nd piece of dough, making a design of some sort for steam to escape.\n" +
                             "Bake for 40-50 minutes until crust is golden and filling begins to bubble through the crust.",
                             "Flour@2 cups@Suger@1 tablespoon@unsalted butter cold@3 tablespoons@ice water@4 tablespoons@apples thinly sliced@6@cinnamon@0.5 tablespoon@lemon juice@2 teaspoons@baking powder@3.5 teaspoons@salt@1 teaspoon@vegetable oil@3 tablespoons@milk@0.75 cup@egg@1@banana@3",
-                            "Arnon", 0));
+                            "Arnon", 0, 0));
                 } catch(Exception e) {
                     Log.e("Error: ", e.toString());
                 }

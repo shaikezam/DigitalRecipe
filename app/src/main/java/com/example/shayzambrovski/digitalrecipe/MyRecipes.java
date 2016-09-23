@@ -66,6 +66,7 @@ public class MyRecipes extends AppCompatActivity {
 
                     RatingBar ratingBar = (RatingBar)findViewById(R.id.my_rate_bar);
                     final int numOfStars = recipeList.get(pos - 1).getRate();
+                    //final int amountOfRates = recipeList.get(pos - 1).getRate();
                     ratingBar.setRating(numOfStars);
                     ratingBar.setVisibility(View.VISIBLE);
 

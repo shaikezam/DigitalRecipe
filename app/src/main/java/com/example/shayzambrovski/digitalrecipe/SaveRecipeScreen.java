@@ -49,7 +49,7 @@ public class SaveRecipeScreen extends AppCompatActivity {
                         dm.show();
                     }
                     else {
-                        long number = db.addRecipe(new Recipe(sName, sDescription, sIngredients, sUserName, 0));
+                        long number = db.addRecipe(new Recipe(sName, sDescription, sIngredients, sUserName, 0, 0));
                         //Log.e("Error :", String.valueOf(number));
                         Log.e("Error :", String.valueOf(db.getRecipeCount()));
                         Toast.makeText(getApplicationContext(),getResources().getString(R.string.recipe_saved),Toast.LENGTH_SHORT).show();

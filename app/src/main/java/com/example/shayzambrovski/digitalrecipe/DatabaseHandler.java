@@ -35,6 +35,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_INGREDIENTS = "ingredients";
     private static final String KEY_INSTRUCTIONS = "instructions";
     private static final String KEY_RECIPE_RATE = "recipe_rate";
+    private static final String KEY_AMOUNT_OF_RATES = "amount_of_rate";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -47,7 +48,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String CREATE_RECIPE_TABLE = "CREATE TABLE IF NOT EXISTS " + RECIPE_TABLE + "("
                 + KEY_RECIPE_NAME + " VARCHAR," + KEY_INGREDIENTS + " VARCHAR," + KEY_INSTRUCTIONS + " VARCHAR," + KEY_USER_NAME + " VARCHAR," +
-                KEY_RECIPE_RATE + " INTEGER," + "FOREIGN KEY(" + KEY_USER_NAME + ") REFERENCES " + USER_TABLE + "(" + USER_TABLE + "))";
+                KEY_RECIPE_RATE + " INTEGER," + KEY_AMOUNT_OF_RATES + " INTEGER," + "FOREIGN KEY(" + KEY_USER_NAME + ") REFERENCES " + USER_TABLE + "(" + USER_TABLE + "))";
         db.execSQL(CREATE_RECIPE_TABLE);
 
     }
@@ -103,6 +104,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_INGREDIENTS, recipe.getIngredients()); // Recipe Ingredients
         values.put(KEY_USER_NAME, recipe.getUserName()); // Recipe UserName
         values.put(KEY_RECIPE_RATE, recipe.getRate()); // Recipe Rate
+        values.put(KEY_AMOUNT_OF_RATES, recipe.getAmountOfRates()); // Recipe amount of Rates
 
 
         // Inserting Row
@@ -185,6 +187,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 recipe.setIngredients(cursor.getString(2));
                 recipe.setUserName(cursor.getString(3));
                 recipe.setRate(Integer.parseInt(cursor.getString(4)));
+                recipe.setAmountOfRates(Integer.parseInt(cursor.getString(5)));
                 // Adding recipes to list
                 recipeList.add(recipe);
             } while (cursor.moveToNext());
@@ -211,6 +214,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 recipe.setInstructions(cursor.getString(2));
                 recipe.setUserName(cursor.getString(3));
                 recipe.setRate(Integer.parseInt(cursor.getString(4)));
+                recipe.setAmountOfRates(Integer.parseInt(cursor.getString(5)));
                 // Adding recipes to list
                 recipeList.add(recipe);
             } while (cursor.moveToNext());
@@ -237,6 +241,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 recipe.setInstructions(cursor.getString(2));
                 recipe.setUserName(cursor.getString(3));
                 recipe.setRate(Integer.parseInt(cursor.getString(4)));
+                recipe.setAmountOfRates(Integer.parseInt(cursor.getString(5)));
                 // Adding recipes to list
                 recipeList.add(recipe);
             } while (cursor.moveToNext());

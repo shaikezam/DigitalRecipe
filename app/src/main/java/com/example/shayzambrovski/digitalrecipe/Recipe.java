@@ -9,13 +9,15 @@ public class Recipe {
     String ingredients;
     String userName;
     int rate;
+    int amountOfRates;
 
-    public Recipe(String name, String instructions, String ingredients, String userName, int rate) {
+    public Recipe(String name, String instructions, String ingredients, String userName, int rate, int amountOfRates) {
         this.name = name;
         this.instructions = instructions;
         this.ingredients = ingredients;
         this.userName = userName;
         this.rate = rate;
+        this.amountOfRates = amountOfRates;
     }
 
     public Recipe() {
@@ -60,5 +62,13 @@ public class Recipe {
 
     public void setRate(int rate) {
         this.rate = rate;
+    }
+
+    public int getAmountOfRates() {
+        return amountOfRates;
+    }
+
+    public void setAmountOfRates(int amountOfRates) {
+        this.amountOfRates = amountOfRates;
     }
 }
