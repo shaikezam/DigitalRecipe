@@ -18,6 +18,7 @@ public class MenuScreen extends AppCompatActivity {
     Button topRatedrecipe;
     Button logOut;
     Bundle extras;
+    String sUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class MenuScreen extends AppCompatActivity {
         mLoadAnimation.setDuration(1200);
         view.startAnimation(mLoadAnimation);
         Bundle extras = getIntent().getExtras();
-        String sUserName = extras.getString("key");
+        this.sUserName = extras.getString("key");
         final Context oContext = this;
 
         DatabaseHandler db = new DatabaseHandler(oContext);
@@ -64,5 +65,25 @@ public class MenuScreen extends AppCompatActivity {
                 }
             }
         });
+
+        this.logOut = (Button)findViewById(R.id.log_out);
+
+        this.logOut.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try{
+                    Log.e("Error: ", "Shay");
+                    Intent myIntent = new Intent(MenuScreen.this, MainScreen.class);
+                    myIntent.putExtra("key", sUserName); //Optional parameters
+                    startActivity(myIntent);
+                } catch(Exception e) {
+                    Log.e("Error: ", e.toString());
+                }
+            }
+        });
+    }
+    public void onBackPressed(){
+        Intent myIntent = new Intent(MenuScreen.this, MenuScreen.class);
+        myIntent.putExtra("key", this.sUserName); //Optional parameters
+        startActivity(myIntent);
     }
 }
