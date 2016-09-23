@@ -219,6 +219,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return recipe list
         return recipeList;
     }
+
+    public List<Recipe> getRecipesByOtherUserName(String sUserName) {
+        List<Recipe> recipeList = new ArrayList<Recipe>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + RECIPE_TABLE + " WHERE " + KEY_USER_NAME + " != '" + sUserName + "'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Recipe recipe = new Recipe();
+                recipe.setName(cursor.getString(0));
+                recipe.setIngredients(cursor.getString(1));
+                recipe.setInstructions(cursor.getString(2));
+                recipe.setUserName(cursor.getString(3));
+                recipe.setRate(Integer.parseInt(cursor.getString(4)));
+                // Adding recipes to list
+                recipeList.add(recipe);
+            } while (cursor.moveToNext());
+        }
+
+        // return recipe list
+        return recipeList;
+    }
     // Getting recipe Count
     public int getRecipeCount() {
         String countQuery = "SELECT  * FROM " + RECIPE_TABLE;

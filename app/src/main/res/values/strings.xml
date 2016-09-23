@@ -38,6 +38,7 @@
     <string name="select_recipe">Please select a recipe</string>
     <string name="rate_title">Error in rate</string>
     <string name="rate_body">You can not rate your recipe</string>
+    <string name="made_by">Made By</string>
 
     <string-array name="ingredient_arrays">
         <item>Choose an ingredient</item>

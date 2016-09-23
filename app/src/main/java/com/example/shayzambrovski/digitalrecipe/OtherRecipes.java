@@ -17,14 +17,14 @@ import android.widget.Spinner;
 import java.util.Arrays;
 import java.util.List;
 
-public class MyRecipes extends AppCompatActivity {
+public class OtherRecipes extends AppCompatActivity {
 
     Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_recipes_screen);
+        setContentView(R.layout.other_recipes_screen);
         View view = findViewById(android.R.id.content);
         Animation mLoadAnimation = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in);
         mLoadAnimation.setDuration(1200);
@@ -44,7 +44,7 @@ public class MyRecipes extends AppCompatActivity {
         try {
             final Context oContext = this;
             DatabaseHandler db = new DatabaseHandler(oContext);
-            final List<Recipe> recipeList = db.getRecipesByUserName(sUserName);
+            final List<Recipe> recipeList = db.getRecipesByOtherUserName(sUserName);
             String myRecipesNames[] = new String[recipeList.size() + 1];
             myRecipesNames[0] = getResources().getString(R.string.select_recipe);
             for(int i = 1 ; i < recipeList.size() + 1 ; i++) {
@@ -70,21 +70,21 @@ public class MyRecipes extends AppCompatActivity {
                     ratingBar.setVisibility(View.VISIBLE);
 
                     ratingBar.setOnTouchListener(new View.OnTouchListener() {
-                                                     @Override
+                        @Override
                         public boolean onTouch(View v, MotionEvent event) {
                             if (event.getAction() == MotionEvent.ACTION_UP) {
                                 DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.rate_title), (getResources().getString(R.string.rate_body)));
-                                    dm.show();
+                                dm.show();
                             }
                             return true;
                         }
                     });
 
                     String[] aIngredients = recipeList.get(pos - 1).getIngredients().split("@", -1);
-                    String[] myIngredients = new String[(aIngredients.length / 2) + 1];
+                    String[] myIngredients = new String[(aIngredients.length / 2) + 2];
                     Arrays.copyOf(aIngredients, aIngredients.length-1);
-
-                    for(int i = 0, j = 0 ; i < aIngredients.length / 2; i++) {
+                    myIngredients[0] = getResources().getString(R.string.made_by) + ": " + recipeList.get(pos - 1).getUserName();
+                    for(int i = 1, j = 0 ; i < aIngredients.length / 2 + 1; i++) {
 
                         myIngredients[i] = aIngredients[j++] + " " + aIngredients[j++];
 

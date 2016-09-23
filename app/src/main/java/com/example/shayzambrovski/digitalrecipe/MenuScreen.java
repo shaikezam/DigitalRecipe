@@ -66,6 +66,20 @@ public class MenuScreen extends AppCompatActivity {
             }
         });
 
+        this.allRecipe = (Button)findViewById(R.id.see_all_recipe);
+
+        this.allRecipe.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try{
+                    Intent myIntent = new Intent(MenuScreen.this, OtherRecipes.class);
+                    myIntent.putExtra("key", sUserName); //Optional parameters
+                    startActivity(myIntent);
+                } catch(Exception e) {
+                    Log.e("Error: ", e.toString());
+                }
+            }
+        });
+
         this.logOut = (Button)findViewById(R.id.log_out);
 
         this.logOut.setOnClickListener(new View.OnClickListener() {
