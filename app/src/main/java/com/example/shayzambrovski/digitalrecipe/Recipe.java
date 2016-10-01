@@ -1,5 +1,7 @@
 package com.example.shayzambrovski.digitalrecipe;
 
+import android.util.Log;
+
 /**
  * Created by Shay Zambrovski on 17/09/2016.
  */
@@ -10,6 +12,7 @@ public class Recipe {
     String userName;
     int rate;
     int amountOfRates;
+    int totalRates;
 
     public Recipe(String name, String instructions, String ingredients, String userName, int rate, int amountOfRates) {
         this.name = name;
@@ -18,6 +21,7 @@ public class Recipe {
         this.userName = userName;
         this.rate = rate;
         this.amountOfRates = amountOfRates;
+        this.totalRates = 0;
     }
 
     public Recipe() {
@@ -61,7 +65,10 @@ public class Recipe {
     }
 
     public void setRate(int rate) {
-        this.rate = rate;
+        this.totalRates = this.totalRates + rate;
+        this.amountOfRates++;
+        this.rate = this.totalRates / this.amountOfRates;
+        Log.e("Error :", String.valueOf(this.rate));
     }
 
     public int getAmountOfRates() {

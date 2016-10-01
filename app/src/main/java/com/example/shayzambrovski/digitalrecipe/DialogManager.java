@@ -8,8 +8,8 @@ import android.content.DialogInterface;
  * Created by Shay Zambrovski on 09/09/2016.
  */
 public class DialogManager {
-    String sTitle;
-    String sBody;
+    String sTitle; //title of the DialogManager
+    String sBody; //body of the DialogManager
     AlertDialog alertDialog;
 
     public DialogManager(Context oContext, String sTitle, String sBody) {
@@ -26,7 +26,7 @@ public class DialogManager {
 
     }
 
-
+    //show dialog manager
     public void show() {
         this.alertDialog.show();
     }

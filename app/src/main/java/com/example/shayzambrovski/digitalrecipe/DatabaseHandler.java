@@ -95,6 +95,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return number;
     }
 
+    // Adding new recipe
     long addRecipe(Recipe recipe) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -111,6 +112,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         long number = db.insert(RECIPE_TABLE, null, values);
         db.close(); // Closing database connection
         return number;
+    }
+
+    // Adding recipe rate
+    void updateRecipeRate(String recipeName, int newStars, Recipe recipe) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_RECIPE_RATE, newStars);
+        final String[] whereArgs = { recipeName };
+        try{
+            db.update(RECIPE_TABLE, values, KEY_RECIPE_NAME + "=?", whereArgs);
+        }catch(Exception e) {
+            Log.e("Error: ", e.toString());
+        }
     }
 
     // Getting single user
@@ -197,6 +211,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return recipeList;
     }
 
+    // get recipe made by specific user
     public List<Recipe> getRecipesByUserName(String sUserName) {
         List<Recipe> recipeList = new ArrayList<Recipe>();
         // Select All Query
@@ -224,6 +239,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return recipeList;
     }
 
+    // get recipes by other users
     public List<Recipe> getRecipesByOtherUserName(String sUserName) {
         List<Recipe> recipeList = new ArrayList<Recipe>();
         // Select All Query
@@ -261,6 +277,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return cursor.getCount();
     }
 
+    //delete DB
     public void deleteDB() {
         //String countQuery = "DELETE  * FROM " + USER_TABLE;
         SQLiteDatabase db = this.getReadableDatabase();

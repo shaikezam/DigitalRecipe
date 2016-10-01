@@ -43,7 +43,7 @@ public class OtherRecipes extends AppCompatActivity {
     public void bindUI(final String sUserName) {
         try {
             final Context oContext = this;
-            DatabaseHandler db = new DatabaseHandler(oContext);
+            final DatabaseHandler db = new DatabaseHandler(oContext);
             final List<Recipe> recipeList = db.getRecipesByOtherUserName(sUserName);
             String myRecipesNames[] = new String[recipeList.size() + 1];
             myRecipesNames[0] = getResources().getString(R.string.select_recipe);
@@ -65,8 +65,10 @@ public class OtherRecipes extends AppCompatActivity {
                         return;
 
                     RatingBar ratingBar = (RatingBar)findViewById(R.id.my_rate_bar);
+                    final Recipe recipe = recipeList.get(pos - 1);
                     final int numOfStars = recipeList.get(pos - 1).getRate();
                     ratingBar.setRating(numOfStars);
+                    Log.e("Error: ", String.valueOf(numOfStars));
                     ratingBar.setVisibility(View.VISIBLE);
 
                     ratingBar.setOnTouchListener(new View.OnTouchListener() {
@@ -77,8 +79,12 @@ public class OtherRecipes extends AppCompatActivity {
                                 float width = ((RatingBar)findViewById(R.id.my_rate_bar)).getWidth();
                                 float starsf = (touchPositionX / width) * 5.0f;
                                 int stars = (int)starsf + 1;
+                                recipe.setRate(stars);
 
-                                Log.e("Error: ", String.valueOf(stars));
+                                Log.e("Error: ", String.valueOf(recipe.getRate()));
+                                db.updateRecipeRate(recipe.getName(), recipe.getRate(), recipe); //update rate in DB
+                                RatingBar rBar = (RatingBar)v;
+                                rBar.setRating(recipe.getRate());
                             }
                             return true;
                         }

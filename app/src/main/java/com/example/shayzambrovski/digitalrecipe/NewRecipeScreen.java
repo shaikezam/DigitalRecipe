@@ -48,7 +48,7 @@ public class NewRecipeScreen extends AppCompatActivity {
         this.spinner = (Spinner)findViewById(R.id.spinner1);
         ArrayAdapter<CharSequence> foodadapter = ArrayAdapter.createFromResource(this, R.array.ingredient_arrays, R.layout.spinner_item);
         foodadapter.setDropDownViewResource(R.layout.spinner_item);
-        spinner.setAdapter(foodadapter);
+        spinner.setAdapter(foodadapter); //spinner of choose ingredients
         this.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
                                        View view, int pos, long id) {

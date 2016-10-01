@@ -50,7 +50,7 @@ public class MyRecipes extends AppCompatActivity {
             for(int i = 1 ; i < recipeList.size() + 1 ; i++) {
                 myRecipesNames[i] = recipeList.get(i-1).getName();
             }
-            this.spinner = (Spinner)findViewById(R.id.spinner1);
+            this.spinner = (Spinner)findViewById(R.id.spinner1); // spinner of all recipes
             this.spinner.setSelection(0);
             ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, R.layout.my_text_view, myRecipesNames);
             spinnerArrayAdapter.setDropDownViewResource(R.layout.my_text_view); // The drop down view
@@ -67,7 +67,7 @@ public class MyRecipes extends AppCompatActivity {
                     RatingBar ratingBar = (RatingBar)findViewById(R.id.my_rate_bar);
                     final int numOfStars = recipeList.get(pos - 1).getRate();
                     //final int amountOfRates = recipeList.get(pos - 1).getRate();
-                    ratingBar.setRating(numOfStars);
+                    ratingBar.setRating(numOfStars); // show recipe rate
                     ratingBar.setVisibility(View.VISIBLE);
 
                     ratingBar.setOnTouchListener(new View.OnTouchListener() {
@@ -75,19 +75,19 @@ public class MyRecipes extends AppCompatActivity {
                         public boolean onTouch(View v, MotionEvent event) {
                             if (event.getAction() == MotionEvent.ACTION_UP) {
                                 DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.rate_title), (getResources().getString(R.string.rate_body)));
-                                    dm.show();
+                                dm.show(); // cant update my recipe
                             }
                             return true;
                         }
                     });
 
-                    String[] aIngredients = recipeList.get(pos - 1).getIngredients().split("@", -1);
+                    String[] aIngredients = recipeList.get(pos - 1).getIngredients().split("@", -1); // split all ingredients
                     String[] myIngredients = new String[(aIngredients.length / 2) + 1];
                     Arrays.copyOf(aIngredients, aIngredients.length-1);
 
                     for(int i = 0, j = 0 ; i < aIngredients.length / 2; i++) {
 
-                        myIngredients[i] = aIngredients[j++] + " " + aIngredients[j++];
+                        myIngredients[i] = aIngredients[j++] + " " + aIngredients[j++]; // concating ingredient and amount
 
                     }
                     myIngredients[myIngredients.length - 1] = recipeList.get(pos - 1).getInstructions();
