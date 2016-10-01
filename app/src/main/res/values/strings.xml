@@ -39,6 +39,9 @@
     <string name="rate_title">Error in rate</string>
     <string name="rate_body">You can not rate your recipe</string>
     <string name="made_by">Made By</string>
+    <string name="delete_data">Delete Data</string>
+    <string name="my_title">Digital Recipe Application</string>
+    <string name="my_body">Made by: Shay Zambrovski</string>
 
     <string-array name="ingredient_arrays">
         <item>Choose an ingredient</item>

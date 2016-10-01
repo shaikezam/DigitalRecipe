@@ -76,9 +76,19 @@
         android:layout_height="20pt"
         android:background="@drawable/rounded_button"
         android:text="@string/init_data"
-        android:textSize="10pt"
+        android:textSize="8pt"
         android:id="@+id/init_data"
         android:layout_alignTop="@+id/about_id"
         android:layout_alignEnd="@+id/imageView" />
+
+    <Button
+        android:layout_width="45pt"
+        android:layout_height="20pt"
+        android:background="@drawable/rounded_button"
+        android:text="@string/delete_data"
+        android:textSize="8pt"
+        android:id="@+id/delete_data"
+        android:layout_alignTop="@+id/init_data"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

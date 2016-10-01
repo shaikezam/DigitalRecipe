@@ -19,6 +19,7 @@ public class MainScreen extends AppCompatActivity {
     Button register;
     Button about;
     Button initData;
+    Button deleteData;
     Bundle extras;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +100,7 @@ public class MainScreen extends AppCompatActivity {
                         } else {
 
                             DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.success),sUserName + ": " + getResources().getString(R.string.registration_success));
-                            dm.show(); //TODO: move to main menu screen
+                            dm.show();
                         }
                     }
 
@@ -112,6 +113,18 @@ public class MainScreen extends AppCompatActivity {
         });
         this.about = (Button)findViewById(R.id.about_id);
         this.about.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try{
+                    DialogManager dm = new DialogManager(oContext, getResources().getString(R.string.my_title), getResources().getString(R.string.my_body));
+                    dm.show();
+                } catch(Exception e) {
+                    Log.e("Error: ", e.toString());
+                }
+            }
+        });
+
+        this.deleteData = (Button)findViewById(R.id.delete_data);
+        this.deleteData.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try{
                     DatabaseHandler db = new DatabaseHandler(oContext);
